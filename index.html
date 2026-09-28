@@ -1,0 +1,2777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Rational Mishra — Urban Escape</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#080808;
+  --bg-soft:#0c0c0c;
+  --panel:#101010;
+  --panel-2:#141414;
+  --text:#f1f0eb;
+  --muted:#92928c;
+  --muted-2:#6e6e69;
+  --line:#282828;
+  --accent:#d8ff3e;
+  --max:1240px;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,Arial,sans-serif;
+  line-height:1.6;
+}
+
+body.modal-open{
+  overflow:hidden;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button{
+  font:inherit;
+}
+
+button:focus-visible,
+a:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:4px;
+}
+
+.container{
+  width:min(var(--max),calc(100% - 40px));
+  margin:auto;
+}
+
+section{
+  padding:120px 0;
+}
+
+.label{
+  color:var(--accent);
+  font:500 10px/1.4 "DM Mono",monospace;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+
+.mono{
+  font-family:"DM Mono",monospace;
+}
+
+.muted{
+  color:var(--muted);
+}
+
+.section-head{
+  display:grid;
+  grid-template-columns:210px 1fr;
+  gap:65px;
+  margin-bottom:65px;
+}
+
+.section-head h2{
+  font:600 clamp(42px,6vw,80px)/.94 "Space Grotesk",sans-serif;
+  letter-spacing:-.065em;
+}
+
+.section-head p{
+  max-width:720px;
+  margin-top:24px;
+  color:#9e9e98;
+  line-height:1.85;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:46px;
+  padding:13px 19px;
+  background:var(--accent);
+  color:#080808;
+  border:1px solid var(--accent);
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:.2s ease;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+}
+
+.btn-outline{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:46px;
+  padding:12px 18px;
+  border:1px solid #353535;
+  color:#ddd;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  cursor:pointer;
+  transition:.2s ease;
+}
+
+.btn-outline:hover{
+  border-color:#666;
+}
+
+/* NAV */
+
+.nav{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(8,8,8,.92);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.nav-inner{
+  height:76px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  font:700 18px "Space Grotesk";
+  letter-spacing:-.04em;
+}
+
+.logo span{
+  color:var(--accent);
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:27px;
+}
+
+.nav-links a{
+  color:#a0a09b;
+  font-size:11px;
+  letter-spacing:.03em;
+}
+
+.nav-links a:hover{
+  color:#fff;
+}
+
+.nav-cta{
+  padding:9px 13px;
+  border:1px solid var(--accent);
+  color:var(--accent)!important;
+}
+
+.menu{
+  display:none;
+  background:none;
+  border:0;
+  color:#fff;
+  font-size:23px;
+  cursor:pointer;
+}
+
+/* HERO */
+
+.hero{
+  min-height:calc(100vh - 76px);
+  display:flex;
+  align-items:center;
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:80px;
+  align-items:end;
+  padding:100px 0;
+}
+
+.hero h1{
+  font:600 clamp(65px,9vw,138px)/.82 "Space Grotesk";
+  letter-spacing:-.08em;
+}
+
+.hero h1 span{
+  display:block;
+  color:transparent;
+  -webkit-text-stroke:1px #696965;
+}
+
+.hero-copy{
+  max-width:480px;
+  margin-left:auto;
+}
+
+.hero-copy p{
+  margin:24px 0 28px;
+  color:#bdbdb7;
+  font-size:16px;
+  line-height:1.85;
+}
+
+.hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+}
+
+.ticker{
+  overflow:hidden;
+  white-space:nowrap;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+
+.ticker div{
+  padding:17px 0;
+  color:#777;
+  font:500 10px "DM Mono",monospace;
+  letter-spacing:.14em;
+}
+
+/* WHY */
+
+.intro{
+  background:var(--bg-soft);
+}
+
+.intro-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:100px;
+}
+
+.big{
+  font:500 clamp(42px,5.4vw,75px)/.98 "Space Grotesk";
+  letter-spacing:-.06em;
+}
+
+.big span{
+  color:var(--accent);
+}
+
+.copy{
+  color:#989893;
+  font-size:15px;
+  line-height:1.9;
+}
+
+.copy p+p{
+  margin-top:22px;
+}
+
+/* WHO */
+
+.who-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:2px;
+  background:var(--line);
+}
+
+.card{
+  min-height:255px;
+  padding:42px;
+  background:var(--panel);
+}
+
+.card h3{
+  margin:24px 0 13px;
+  font:500 30px "Space Grotesk";
+}
+
+.card p{
+  max-width:560px;
+  color:#91918c;
+  line-height:1.8;
+}
+
+/* IDEAS */
+
+.ideas{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:2px;
+  background:var(--line);
+}
+
+.idea{
+  min-height:225px;
+  padding:30px;
+  background:var(--panel);
+  transition:.2s ease;
+}
+
+.idea:hover{
+  background:var(--panel-2);
+}
+
+.idea h3{
+  margin-top:58px;
+  font:500 27px "Space Grotesk";
+}
+
+.idea p{
+  margin-top:9px;
+  color:#858580;
+  font-size:13px;
+}
+
+/* LIBRARY */
+
+.library{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:2px;
+  background:var(--line);
+}
+
+.library-item{
+  min-height:210px;
+  padding:34px;
+  background:var(--panel);
+}
+
+.library-item h3{
+  margin:39px 0 10px;
+  font:500 27px "Space Grotesk";
+}
+
+.library-item p{
+  max-width:520px;
+  color:#888;
+  font-size:13px;
+  line-height:1.8;
+}
+
+/* COURSE */
+
+.course{
+  background:#0d0d0d;
+}
+
+.course-top{
+  display:grid;
+  grid-template-columns:1fr .7fr;
+  gap:90px;
+  align-items:end;
+}
+
+.course-name{
+  font:600 clamp(58px,8vw,120px)/.82 "Space Grotesk";
+  letter-spacing:-.08em;
+}
+
+.concept{
+  display:inline-flex;
+  margin-top:34px;
+  padding:11px 14px;
+  border:1px solid #303030;
+  color:var(--accent);
+  font:500 10px "DM Mono";
+  letter-spacing:.1em;
+}
+
+.course-side{
+  color:#999;
+  line-height:1.85;
+}
+
+.course-side p+p{
+  margin-top:20px;
+}
+
+/* PRODUCT */
+
+.course-product{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:2px;
+  margin-top:95px;
+  background:var(--line);
+}
+
+.product-info,
+.product-buy{
+  background:var(--panel);
+  padding:40px;
+}
+
+.product-info h3{
+  margin:20px 0 15px;
+  font:500 35px/1.05 "Space Grotesk";
+}
+
+.product-info > p{
+  max-width:650px;
+  color:#92928d;
+  line-height:1.8;
+}
+
+.product-points{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1px;
+  margin-top:35px;
+  background:var(--line);
+}
+
+.point{
+  min-height:82px;
+  padding:17px;
+  background:#0b0b0b;
+}
+
+.point-label{
+  display:block;
+  margin-bottom:7px;
+  color:#6f6f69;
+  font:500 9px "DM Mono";
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.point-value{
+  font:500 20px "Space Grotesk";
+}
+
+.product-buy{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.price-label{
+  color:#777;
+  font:500 9px "DM Mono";
+  letter-spacing:.1em;
+}
+
+.price{
+  margin:12px 0;
+  font:500 50px "Space Grotesk";
+}
+
+.buy-note{
+  max-width:390px;
+  color:#777;
+  font-size:12px;
+  line-height:1.7;
+}
+
+.product-buy .btn{
+  align-self:flex-start;
+  margin-top:35px;
+}
+
+/* CURRICULUM */
+
+.curriculum{
+  margin-top:25px;
+  border-top:1px solid var(--line);
+}
+
+.module{
+  border-bottom:1px solid var(--line);
+}
+
+.module-header{
+  width:100%;
+  display:grid;
+  grid-template-columns:60px 1fr auto;
+  align-items:center;
+  padding:24px 0;
+  background:none;
+  border:0;
+  color:#fff;
+  text-align:left;
+  cursor:pointer;
+}
+
+.module-header:hover .module-name{
+  color:var(--accent);
+}
+
+.module-num{
+  color:var(--accent);
+  font:500 10px "DM Mono";
+}
+
+.module-name{
+  font:500 21px "Space Grotesk";
+  transition:.2s;
+}
+
+.module-arrow{
+  color:#777;
+  font-size:20px;
+}
+
+.module-content{
+  display:none;
+  max-width:800px;
+  padding:0 0 28px 60px;
+  color:#858580;
+  line-height:1.8;
+}
+
+.module.open .module-content{
+  display:block;
+}
+
+.lessons{
+  display:grid;
+  gap:7px;
+  margin-top:18px;
+}
+
+.lesson{
+  width:100%;
+  display:grid;
+  grid-template-columns:45px 1fr auto;
+  align-items:center;
+  gap:15px;
+  padding:14px;
+  background:#0b0b0b;
+  border:1px solid #1d1d1d;
+  color:#aaa;
+  text-align:left;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.lesson:hover{
+  border-color:#3b3b3b;
+}
+
+.lesson-number{
+  color:#666;
+  font:500 10px "DM Mono";
+}
+
+.lesson-title{
+  font-size:12px;
+}
+
+.lock{
+  color:#666;
+  font-size:11px;
+}
+
+/* WHY COURSE */
+
+.reasons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:2px;
+  background:var(--line);
+}
+
+.reason{
+  min-height:220px;
+  padding:38px;
+  background:var(--panel);
+}
+
+.reason h3{
+  margin:42px 0 11px;
+  font:500 26px "Space Grotesk";
+}
+
+.reason p{
+  max-width:560px;
+  color:#8d8d88;
+  font-size:13px;
+  line-height:1.8;
+}
+
+/* STUDENT */
+
+.student{
+  background:#0c0c0c;
+}
+
+.dashboard{
+  border:1px solid #292929;
+  background:#090909;
+}
+
+.dashboard-top{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  padding:24px;
+  border-bottom:1px solid #222;
+}
+
+.dashboard-main{
+  display:grid;
+  grid-template-columns:1fr 1.2fr;
+  min-height:445px;
+}
+
+.dashboard-side{
+  padding:25px;
+  border-right:1px solid #222;
+}
+
+.dashboard-side h4{
+  margin:15px 0 28px;
+  font:500 20px "Space Grotesk";
+}
+
+.dash-module{
+  display:flex;
+  justify-content:space-between;
+  padding:13px 0;
+  border-bottom:1px solid #1d1d1d;
+  color:#777;
+  font-size:12px;
+}
+
+.dash-module.active{
+  color:#fff;
+}
+
+.dash-module.active span:last-child{
+  color:var(--accent);
+}
+
+.dashboard-content{
+  padding:34px;
+}
+
+.progress-number{
+  margin-top:8px;
+  font:500 54px "Space Grotesk";
+}
+
+.progress-wrap{
+  height:4px;
+  margin:19px 0 34px;
+  background:#242424;
+}
+
+.progress{
+  width:42%;
+  height:100%;
+  background:var(--accent);
+}
+
+.continue{
+  margin-top:25px;
+  padding:27px;
+  border:1px solid #292929;
+}
+
+.continue h3{
+  margin:10px 0 6px;
+  font:500 27px "Space Grotesk";
+}
+
+.continue p{
+  color:#777;
+  font-size:13px;
+}
+
+/* LESSON */
+
+.lesson-preview{
+  display:grid;
+  grid-template-columns:1fr .7fr;
+  gap:2px;
+  background:var(--line);
+}
+
+.video{
+  min-height:330px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#050505;
+  text-align:center;
+}
+
+.play{
+  width:68px;
+  height:68px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid var(--accent);
+  border-radius:50%;
+  color:var(--accent);
+}
+
+.lesson-info{
+  padding:35px;
+  background:var(--panel);
+}
+
+.lesson-info h3{
+  margin:15px 0;
+  font:500 31px "Space Grotesk";
+}
+
+.lesson-info p{
+  color:#888;
+  font-size:13px;
+  line-height:1.8;
+}
+
+/* 1:1 */
+
+.one{
+  background:#0d0d0d;
+}
+
+.one-grid{
+  display:grid;
+  grid-template-columns:1fr .8fr;
+  gap:100px;
+}
+
+.one-title{
+  font:500 clamp(48px,6vw,84px)/.88 "Space Grotesk";
+  letter-spacing:-.07em;
+}
+
+.one-copy{
+  max-width:620px;
+  margin-top:30px;
+  color:#999;
+  line-height:1.9;
+}
+
+.public-info{
+  max-width:620px;
+  margin-top:28px;
+  padding:16px;
+  border:1px solid #252525;
+  color:#777;
+  font-size:11px;
+  line-height:1.7;
+}
+
+.booking{
+  padding:34px;
+  border:1px solid var(--line);
+  background:var(--panel);
+}
+
+.booking h3{
+  margin:15px 0 25px;
+  font:500 28px "Space Grotesk";
+}
+
+.step{
+  display:flex;
+  gap:20px;
+  padding:19px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.step:last-child{
+  border-bottom:0;
+}
+
+.step b{
+  color:var(--accent);
+  font:500 10px "DM Mono";
+}
+
+.step div{
+  color:#999;
+  font-size:12px;
+  line-height:1.7;
+}
+
+.step strong{
+  color:#ddd;
+}
+
+/* FAQ */
+
+.faq{
+  max-width:900px;
+  margin:auto;
+  border-top:1px solid var(--line);
+}
+
+.faq-item{
+  border-bottom:1px solid var(--line);
+}
+
+.faq-q{
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  padding:23px 0;
+  background:none;
+  border:0;
+  color:#fff;
+  text-align:left;
+  font:500 18px "Space Grotesk";
+  cursor:pointer;
+}
+
+.faq-q span{
+  color:#777;
+}
+
+.faq-a{
+  display:none;
+  max-width:760px;
+  padding:0 0 25px;
+  color:#888;
+  font-size:13px;
+  line-height:1.85;
+}
+
+.faq-item.open .faq-a{
+  display:block;
+}
+
+/* FINAL */
+
+.final{
+  padding:160px 0;
+  border-top:1px solid var(--line);
+  text-align:center;
+}
+
+.final h2{
+  font:600 clamp(55px,9vw,125px)/.84 "Space Grotesk";
+  letter-spacing:-.08em;
+}
+
+.final h2 span{
+  color:var(--accent);
+}
+
+.final p{
+  max-width:600px;
+  margin:30px auto;
+  color:#8e8e89;
+  line-height:1.8;
+}
+
+/* FOOTER */
+
+footer{
+  border-top:1px solid var(--line);
+  padding:34px 0;
+}
+
+.footer{
+  display:flex;
+  justify-content:space-between;
+  gap:25px;
+  color:#70706b;
+  font-size:10px;
+}
+
+.footer strong{
+  color:#aaa;
+}
+
+/* MODAL */
+
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:300;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:rgba(0,0,0,.8);
+  backdrop-filter:blur(10px);
+}
+
+.modal.active{
+  display:flex;
+}
+
+.modal-box{
+  position:relative;
+  width:min(560px,100%);
+  padding:36px;
+  border:1px solid #303030;
+  background:#101010;
+}
+
+.modal-close{
+  position:absolute;
+  top:14px;
+  right:18px;
+  border:0;
+  background:none;
+  color:#777;
+  font-size:22px;
+  cursor:pointer;
+}
+
+.modal-box h3{
+  margin:14px 0;
+  font:500 34px "Space Grotesk";
+}
+
+.modal-box > p{
+  color:#8f8f89;
+  font-size:13px;
+  line-height:1.8;
+}
+
+.modal-status{
+  margin-top:22px;
+  padding:17px;
+  border:1px solid #292929;
+  color:#aaa;
+  font-size:11px;
+  line-height:1.8;
+  white-space:pre-line;
+}
+
+.modal-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:24px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:850px){
+
+  .container{
+    width:min(var(--max),calc(100% - 28px));
+  }
+
+  section{
+    padding:85px 0;
+  }
+
+  .menu{
+    display:block;
+  }
+
+  .nav-links{
+    position:absolute;
+    top:76px;
+    left:0;
+    right:0;
+    display:none;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:22px;
+    padding:25px 20px;
+    background:#090909;
+    border-bottom:1px solid var(--line);
+  }
+
+  .nav-links.active{
+    display:flex;
+  }
+
+  .hero{
+    min-height:auto;
+  }
+
+  .hero-grid{
+    grid-template-columns:1fr;
+    gap:55px;
+    padding:80px 0;
+  }
+
+  .hero h1{
+    font-size:clamp(60px,18vw,100px);
+  }
+
+  .hero-copy{
+    margin:0;
+  }
+
+  .section-head{
+    grid-template-columns:1fr;
+    gap:23px;
+    margin-bottom:45px;
+  }
+
+  .section-head h2{
+    font-size:clamp(42px,12vw,65px);
+  }
+
+  .intro-grid,
+  .who-grid,
+  .ideas,
+  .library,
+  .course-top,
+  .course-product,
+  .reasons,
+  .dashboard-main,
+  .lesson-preview,
+  .one-grid{
+    grid-template-columns:1fr;
+    gap:2px;
+  }
+
+  .intro-grid{
+    gap:45px;
+  }
+
+  .card{
+    min-height:auto;
+  }
+
+  .product-points{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .product-buy{
+    min-height:280px;
+  }
+
+  .dashboard-side{
+    border-right:0;
+    border-bottom:1px solid #222;
+  }
+
+  .dashboard-content{
+    padding:28px 22px;
+  }
+
+  .one-title{
+    font-size:clamp(48px,14vw,75px);
+  }
+
+  .module-header{
+    grid-template-columns:43px 1fr auto;
+  }
+
+  .module-name{
+    font-size:18px;
+  }
+
+  .module-content{
+    padding-left:43px;
+  }
+
+  .footer{
+    flex-direction:column;
+  }
+
+}
+
+@media(max-width:480px){
+
+  .hero-actions{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .hero-actions .btn,
+  .hero-actions .btn-outline{
+    width:100%;
+  }
+
+  .product-points{
+    grid-template-columns:1fr;
+  }
+
+  .product-info,
+  .product-buy,
+  .booking,
+  .card,
+  .reason{
+    padding:27px;
+  }
+
+  .dashboard-top{
+    flex-direction:column;
+  }
+
+  .lesson{
+    grid-template-columns:32px 1fr auto;
+  }
+
+  .modal-box{
+    padding:28px 22px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+
+<nav class="nav">
+  <div class="container nav-inner">
+
+    <a href="#" class="logo">
+      RATIONAL<span>/</span>MISHRA
+    </a>
+
+    <button class="menu" id="menu" type="button" aria-label="Open menu">
+      ☰
+    </button>
+
+    <div class="nav-links" id="navLinks">
+      <a href="#about">ABOUT</a>
+      <a href="#ideas">IDEAS</a>
+      <a href="#course">COURSE</a>
+      <a href="#student">STUDENT</a>
+      <a href="#one">1:1</a>
+      <a href="#faq">FAQ</a>
+      <a href="#one" class="nav-cta">BOOK 1:1</a>
+    </div>
+
+  </div>
+</nav>
+
+
+<!-- HERO -->
+
+<header class="hero">
+
+  <div class="container hero-grid">
+
+    <div>
+
+      <div class="label">
+        URBAN ESCAPE / RATIONAL MISHRA
+      </div>
+
+      <h1>
+        RETHINK.
+        <span>RECLAIM.</span>
+        RELIVE.
+      </h1>
+
+    </div>
+
+    <div class="hero-copy">
+
+      <p>
+        A digital home for people who question the default path —
+        money, work, freedom, relationships, society and the way
+        we choose to live.
+      </p>
+
+      <div class="hero-actions">
+
+        <a href="#ideas" class="btn">
+          Explore the thinking →
+        </a>
+
+        <a href="#course" class="btn-outline">
+          Explore course
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<div class="ticker">
+  <div>
+    MONEY — CAREER — FREEDOM — PSYCHOLOGY — RELATIONSHIPS — PHILOSOPHY — INDEPENDENT THINKING — MONEY — CAREER — FREEDOM
+  </div>
+</div>
+
+
+<!-- WHY -->
+
+<section id="about" class="intro">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div class="label">
+        01 / WHY THIS EXISTS
+      </div>
+
+      <div>
+
+        <h2>
+          Don't just consume ideas. Understand them.
+        </h2>
+
+        <p>
+          YouTube is where people discover Rational Mishra.
+          This website is where those ideas can become easier
+          to explore, understand and eventually act on.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="intro-grid">
+
+      <div class="big">
+
+        THE QUESTION IS NOT
+
+        <span>“WHAT SHOULD I DO?”</span>
+
+        <br><br>
+
+        IT'S
+
+        <span>“WHY AM I DOING THIS?”</span>
+
+      </div>
+
+      <div class="copy">
+
+        <p>
+          Rational Mishra's content repeatedly questions things
+          people often accept automatically — career paths, money,
+          relationships, social expectations, independence and
+          the idea of a “normal” life.
+        </p>
+
+        <p>
+          This website brings those conversations together into
+          one digital home instead of leaving everything scattered
+          across social platforms.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- WHO -->
+
+<section>
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div class="label">
+        02 / WHO IS RATIONAL?
+      </div>
+
+      <div>
+
+        <h2>
+          A creator built around one recurring question.
+        </h2>
+
+        <p>
+          What happens when you stop automatically following
+          the life society has designed for you?
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="who-grid">
+
+      <div class="card">
+
+        <div class="label">CREATOR</div>
+
+        <h3>Rational Mishra</h3>
+
+        <p>
+          A creator discussing money, work, independence,
+          relationships, psychology, philosophy and society
+          through a questioning lens.
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="label">URBAN ESCAPE</div>
+
+        <h3>Rethink the default.</h3>
+
+        <p>
+          Question the assumptions behind the life you're expected
+          to live, then consciously decide what you actually want.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- IDEAS -->
+
+<section id="ideas">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div class="label">
+        03 / THE IDEAS
+      </div>
+
+      <div>
+
+        <h2>
+          Six areas. One bigger conversation.
+        </h2>
+
+        <p>
+          Explore the themes that repeatedly appear across
+          Rational Mishra's content.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="ideas">
+
+      <div class="idea">
+        <div class="label">01</div>
+        <h3>MONEY</h3>
+        <p>Understanding money, wealth and financial independence.</p>
+      </div>
+
+      <div class="idea">
+        <div class="label">02</div>
+        <h3>CAREER</h3>
+        <p>Work, the 9–5 path and building something of your own.</p>
+      </div>
+
+      <div class="idea">
+        <div class="label">03</div>
+        <h3>FREEDOM</h3>
+        <p>Independence, choice and designing your own direction.</p>
+      </div>
+
+      <div class="idea">
+        <div class="label">04</div>
+        <h3>PSYCHOLOGY</h3>
+        <p>Understanding yourself, behaviour and personal change.</p>
+      </div>
+
+      <div class="idea">
+        <div class="label">05</div>
+        <h3>RELATIONSHIPS</h3>
+        <p>Questioning expectations around relationships and life decisions.</p>
+      </div>
+
+      <div class="idea">
+        <div class="label">06</div>
+        <h3>PHILOSOPHY</h3>
+        <p>Ideas that make you stop, question and think again.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- LIBRARY -->
+
+<section>
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div class="label">
+        04 / THE LIBRARY
+      </div>
+
+      <div>
+
+        <h2>
+          One place for everything.
+        </h2>
+
+        <p>
+          The website can turn scattered content into a structured
+          library that people can return to.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="library">
+
+      <div class="library-item">
+        <div class="label">WATCH</div>
+        <h3>YouTube</h3>
+        <p>
+          Discover videos, ideas and conversations from the
+          Rational Mishra channel.
+        </p>
+      </div>
+
+      <div class="library-item">
+        <div class="label">READ</div>
+        <h3>Articles</h3>
+        <p>
+          Turn important video ideas into focused written pieces
+          that are easier to revisit.
+        </p>
+      </div>
+
+      <div class="library-item">
+        <div class="label">THINK</div>
+        <h3>Notes</h3>
+        <p>
+          Short thoughts, frameworks and questions worth thinking
+          about beyond a single video.
+        </p>
+      </div>
+
+      <div class="library-item">
+        <div class="label">CONVERSATIONS</div>
+        <h3>Long-form discussions</h3>
+        <p>
+          A future home for deeper conversations around ideas,
+          life and independence.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- COURSE -->
+
+<section id="course" class="course">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div class="label">
+        05 / THE COURSE
+      </div>
+
+      <div>
+
+        <h2>
+          What if the ideas became a method?
+        </h2>
+
+        <p>
+          Instead of watching individual videos forever, a future
+          course could bring the core ideas together into one
+          structured learning experience.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="course-top">
+
+      <div>
+
+        <div class="course-name">
+          THE<br>
+          INDEPENDENT<br>
+          LIFE
+        </div>
+
+        <div class="concept">
+          CONCEPT / PRODUCT EXPERIENCE PREVIEW
+        </div>
+
+      </div>
+
+      <div class="course-side">
+
+        <p>
+          A conceptual course built around independence, money,
+          career, thinking and consciously designing your own life.
+        </p>
+
+        <p>
+          The product experience below demonstrates how a future
+          paid course could work. It is not currently being offered
+          for purchase.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- COURSE PRODUCT -->
+
+    <div class="course-product">
+
+      <div class="product-info">
+
+        <div class="label">
+          COURSE OVERVIEW
+        </div>
+
+        <h3>
+          Rethink the default. Build your own path.
+        </h3>
+
+        <p>
+          A structured learning journey designed around the ideas
+          that repeatedly appear across Rational Mishra's content.
+        </p>
+
+
+        <div class="product-points">
+
+          <div class="point">
+            <span class="point-label">Modules</span>
+            <span class="point-value">06</span>
+          </div>
+
+          <div class="point">
+            <span class="point-label">Lessons</span>
+            <span class="point-value">24</span>
+          </div>
+
+          <div class="point">
+            <span class="point-label">Format</span>
+            <span class="point-value">Self-paced</span>
+          </div>
+
+          <div class="point">
+            <span class="point-label">Dashboard</span>
+            <span class="point-value">Planned</span>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="product-buy">
+
+        <div>
+
+          <div class="price-label">
+            PRICE
+          </div>
+
+          <div class="price">
+            TBA
+          </div>
+
+          <div class="buy-note">
+            Pricing, launch date, payment method and access terms
+            would be decided before the actual course launches.
+          </div>
+
+        </div>
+
+        <button class="btn" id="buyCourse" type="button">
+          BUY COURSE →
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- CURRICULUM -->
+
+    <div style="margin-top:90px">
+
+      <div class="label">
+        COURSE CURRICULUM
+      </div>
+
+      <div class="curriculum">
+
+
+        <div class="module">
+
+          <button class="module-header" type="button">
+            <span class="module-num">01</span>
+            <span class="module-name">Understand The Default Path</span>
+            <span class="module-arrow">+</span>
+          </button>
+
+          <div class="module-content">
+
+            Question the assumptions behind education, career,
+            status and conventional definitions of success.
+
+            <div class="lessons">
+
+              <button class="lesson locked-lesson" type="button">
+                <span class="lesson-number">01</span>
+                <span class="lesson-title">The Life You Were Told To Live</span>
+                <span class="lock">🔒</span>
+              </button>
+
+              <button class="lesson locked-lesson" type="button">
+                <span class="lesson-number">02</span>
+                <span class="lesson-title">Who Decided What Success Means?</span>
+                <span class="lock">🔒</span>
+              </button>
+
+              <button class="lesson locked-lesson" type="button">
+                <span class="lesson-number">03</span>
+                <span class="lesson-title">The Default Path</span>
+                <span class="lock">🔒</span>
+              </button>
+
+              <button class="lesson locked-lesson" type="button">
+                <span class="lesson-number">04</span>
+                <span class="lesson-title">Start Questioning</span>
+                <span class="lock">🔒</span>
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="module">
+
+          <button class="module-header" type="button">
+            <span class="module-num">02</span>
+            <span class="module-name">Money & Independence</span>
+            <span class="module-arrow">+</span>
+          </button>
+
+          <div class="module-content">
+
+            Explore the relationship between money, freedom,
+            decisions and personal independence.
+
+            <div class="lessons">
+
+              <button class="lesson locked-lesson" type="button">
+                <span class="lesson-number">01</span>
+                <span class="lesson-title">Why Money Matters</span>
+                <span class="lock">🔒</span>
+              </button>
+
+              <button class="lesson locked-lesson" type="button">
+                <span class="lesson-number">02</span>
+                <span class="lesson-title">Money & Freedom</span>
+                <span class="lock">🔒</span>
+              </button>
+
+              <button class="lesson locked-lesson" type="button">
+                <span class="lesson-number">03</span>
+                <span class="lesson-title">Financial Independence</span>
+                <span class="lock">🔒</span>
+              </button>
+
+              <button class="lesson locked-lesson" type="button">
+                <span class="lesson-number">04</span>
+                <span class="lesson-title">Building Your Own Foundation</span>
+                <span class="lock">🔒</span>
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="module">
+
+          <button class="module-header" type="button">
+            <span class="module-num">03</span>
+            <span class="module-name">Career & The 9–5</span>
+            <span class="module-arrow">+</span>
+          </button>
+
+          <div class="module-content">
+
+            Think through employment, career choices and the
+            possibility of building something independently.
+
+            <div class="lessons">
+
+              <button class="lesson locked-lesson" type="button">
+                <span class="lesson-number">01</span>
+                <span class="lesson-title">What Is A Career?</span>
+                <span class="lock">🔒</span>
+              </button>
+
+              <button class="lesson locked-lesson" type="button">
+                <span class="lesson-number">02</span>
+                <span class="lesson-title">The 9–5 Question</span>
+                <span class="lock">🔒</span>
+              </button>
+
+              <button class="lesson locked-lesson" type="button">
+                <span class="lesson-number">03</span>
+                <span class="lesson-title">Risk, Security & Choice</span>
+                <span class="lock">🔒</span>
+              </button>
+
+              <button class="lesson locked-lesson" type="button">
+                <span class="lesson-number">04</span>
+                <span class="lesson-title">Building Your Own Path</span>
+                <span class="lock">🔒</span>
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="module">
+
+          <button class="module-header" type="button">
+            <span class="module-num">04</span>
+            <span class="module-name">Building Something Of Your Own</span>
+            <span class="module-arrow">+</span>
+          </button>
+
+          <div class="module-content">
+
+            A conceptual module around ownership, creating value,
+            experimentation and building an independent path.
+
+            <div class="lessons">
+
+              <button class="lesson locked-lesson" type="button">
+                <span class="lesson-number">01</span>
+                <span class="lesson-title">Ownership</span>
+                <span class="lock">🔒</span>
+              </button>
+
+              <button class="lesson locked-lesson" type="button">
+                <span class="lesson-number">02</span>
+                <span class="lesson-title">Creating Value</span>
+                <span class="lock">🔒</span>
+              </button>
+
+              <button class="lesson locked-lesson" type="button">
+                <span class="lesson-number">03</span>
+                <span class="lesson-title">Start Small</span>
+                <span class="lock">🔒</span>
+              </button>
+
+              <button class="lesson locked-lesson" type="button">
+                <span class="lesson-number">04</span>
+                <span class="lesson-title">Build & Learn</span>
+                <span class="lock">🔒</span>
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="module">
+
+          <button class="module-header" type="button">
+            <span class="module-num">05</span>
+            <span class="module-name">Thinking Independently</span>
+            <span class="module-arrow">+</span>
+          </button>
+
+          <div class="module-content">
+
+            Learn to examine ideas, question assumptions and develop
+            your own reasoning.
+
+            <div class="lessons">
+
+              <button class="lesson locked-lesson" type="button">
+                <span class="lesson-number">01</span>
+                <span class="lesson-title">Question Your Assumptions</span>
+                <span class="lock">🔒</span>
+              </button>
+
+              <button class="lesson locked-lesson" type="button">
+                <span class="lesson-number">02</span>
+                <span class="lesson-title">Think Before You Follow</span>
+                <span class="lock">🔒</span>
+              </button>
+
+              <button class="lesson locked-lesson" type="button">
+                <span class="lesson-number">03</span>
+                <span class="lesson-title">Build Your Own Reasoning</span>
+                <span class="lock">🔒</span>
+              </button>
+
+              <button class="lesson locked-lesson" type="button">
+                <span class="lesson-number">04</span>
+                <span class="lesson-title">Independent Thinking</span>
+                <span class="lock">🔒</span>
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="module">
+
+          <button class="module-header" type="button">
+            <span class="module-num">06</span>
+            <span class="module-name">Designing Your Life</span>
+            <span class="module-arrow">+</span>
+          </button>
+
+          <div class="module-content">
+
+            Bring the ideas together and think about what an
+            intentionally designed life could look like for you.
+
+            <div class="lessons">
+
+              <button class="lesson locked-lesson" type="button">
+                <span class="lesson-number">01</span>
+                <span class="lesson-title">What Do You Actually Want?</span>
+                <span class="lock">🔒</span>
+              </button>
+
+              <button class="lesson locked-lesson" type="button">
+                <span class="lesson-number">02</span>
+                <span class="lesson-title">Design Your Direction</span>
+                <span class="lock">🔒</span>
+              </button>
+
+              <button class="lesson locked-lesson" type="button">
+                <span class="lesson-number">03</span>
+                <span class="lesson-title">Make Better Decisions</span>
+                <span class="lock">🔒</span>
+              </button>
+
+              <button class="lesson locked-lesson" type="button">
+                <span class="lesson-number">04</span>
+                <span class="lesson-title">Choose Your Own Path</span>
+                <span class="lock">🔒</span>
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- WHY TAKE IT -->
+
+<section>
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div class="label">
+        06 / WHY TAKE IT?
+      </div>
+
+      <div>
+
+        <h2>
+          Not another collection of videos.
+        </h2>
+
+        <p>
+          The value of a future course would come from structure,
+          sequence and application — not simply from having more content.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="reasons">
+
+      <div class="reason">
+        <div class="label">01</div>
+        <h3>A CLEAR STARTING POINT</h3>
+        <p>
+          Instead of wondering which video to watch first,
+          a student gets a defined learning path.
+        </p>
+      </div>
+
+      <div class="reason">
+        <div class="label">02</div>
+        <h3>STRUCTURE</h3>
+        <p>
+          Topics are connected into modules and lessons so
+          the bigger picture becomes easier to understand.
+        </p>
+      </div>
+
+      <div class="reason">
+        <div class="label">03</div>
+        <h3>REFLECTION</h3>
+        <p>
+          Notes, questions and exercises can make the student
+          actively engage with the material.
+        </p>
+      </div>
+
+      <div class="reason">
+        <div class="label">04</div>
+        <h3>A WAY TO CONTINUE</h3>
+        <p>
+          The learning experience can give people a place to
+          return to instead of ending with one video.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- STUDENT -->
+
+<section id="student" class="student">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div class="label">
+        07 / STUDENT EXPERIENCE
+      </div>
+
+      <div>
+
+        <h2>
+          What happens after you buy?
+        </h2>
+
+        <p>
+          This is the product experience a future student could see
+          after purchasing the course.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="dashboard">
+
+      <div class="dashboard-top">
+
+        <div class="label">
+          THE INDEPENDENT LIFE
+        </div>
+
+        <div class="mono muted">
+          STUDENT AREA / CONCEPT
+        </div>
+
+      </div>
+
+
+      <div class="dashboard-main">
+
+        <div class="dashboard-side">
+
+          <div class="label">
+            YOUR COURSE
+          </div>
+
+          <h4>
+            Welcome Back.
+          </h4>
+
+          <div class="dash-module active">
+            <span>01 / Default Path</span>
+            <span>✓</span>
+          </div>
+
+          <div class="dash-module active">
+            <span>02 / Money</span>
+            <span>✓</span>
+          </div>
+
+          <div class="dash-module active">
+            <span>03 / Career</span>
+            <span>→</span>
+          </div>
+
+          <div class="dash-module">
+            <span>04 / Building</span>
+            <span>🔒</span>
+          </div>
+
+          <div class="dash-module">
+            <span>05 / Thinking</span>
+            <span>🔒</span>
+          </div>
+
+          <div class="dash-module">
+            <span>06 / Life</span>
+            <span>🔒</span>
+          </div>
+
+        </div>
+
+
+        <div class="dashboard-content">
+
+          <div class="label">
+            COURSE PROGRESS
+          </div>
+
+          <div class="progress-number">
+            42%
+          </div>
+
+          <div class="progress-wrap">
+            <div class="progress"></div>
+          </div>
+
+          <div class="label">
+            CONTINUE LEARNING
+          </div>
+
+          <div class="continue">
+
+            <div class="mono muted">
+              MODULE 03 / CAREER & THE 9–5
+            </div>
+
+            <h3>
+              The 9–5 Question
+            </h3>
+
+            <p>
+              Continue where you left off.
+            </p>
+
+            <a href="#lesson" class="btn" style="margin-top:22px">
+              Continue Lesson →
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- LESSON -->
+
+<section id="lesson">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div class="label">
+        08 / LESSON EXPERIENCE
+      </div>
+
+      <div>
+
+        <h2>
+          Not just videos. An experience.
+        </h2>
+
+        <p>
+          A future student could open one lesson, watch the content,
+          read notes, use resources and continue directly to the next lesson.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="lesson-preview">
+
+      <div class="video">
+
+        <div>
+
+          <div class="play">
+            ▶
+          </div>
+
+          <div class="mono muted" style="margin-top:20px">
+            VIDEO LESSON / CONCEPT
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="lesson-info">
+
+        <div class="label">
+          MODULE 03 / LESSON 02
+        </div>
+
+        <h3>
+          The 9–5 Question
+        </h3>
+
+        <p>
+          A focused lesson environment with video, notes,
+          resources and progress tracking.
+        </p>
+
+        <div class="progress-wrap" style="margin-top:30px">
+          <div class="progress" style="width:75%"></div>
+        </div>
+
+        <div class="mono muted">
+          LESSON PROGRESS — 75%
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- 1:1 -->
+
+<section id="one" class="one">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div class="label">
+        09 / WORK WITH RATIONAL
+      </div>
+
+      <div>
+
+        <h2>
+          Have a question? Talk directly.
+        </h2>
+
+        <p>
+          The website can turn the existing 1:1 consultation into
+          a proper booking experience instead of relying entirely
+          on Instagram DMs.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="one-grid">
+
+      <div>
+
+        <div class="one-title">
+          ONE IDEA.<br>
+          ONE CONVERSATION.<br>
+          ONE SESSION.
+        </div>
+
+        <p class="one-copy">
+          A private 1:1 consultation can give someone dedicated
+          time to discuss their situation, questions, ideas or
+          decisions directly with Rational.
+        </p>
+
+        <div class="public-info">
+          <strong style="color:#aaa">
+            CURRENT PUBLIC INFORMATION
+          </strong>
+          <br>
+          The current public Instagram information lists
+          ₹1000 / session. Exact duration, availability and
+          booking rules should be confirmed before launch.
+        </div>
+
+      </div>
+
+
+      <div class="booking">
+
+        <div class="label">
+          PROPOSED BOOKING FLOW
+        </div>
+
+        <h3>
+          No Instagram DM required.
+        </h3>
+
+        <div class="step">
+          <b>01</b>
+          <div>
+            <strong>Choose a time</strong><br>
+            Select an available appointment slot.
+          </div>
+        </div>
+
+        <div class="step">
+          <b>02</b>
+          <div>
+            <strong>Book & pay</strong><br>
+            Complete payment before confirmation.
+          </div>
+        </div>
+
+        <div class="step">
+          <b>03</b>
+          <div>
+            <strong>Get confirmation</strong><br>
+            Receive appointment details by email.
+          </div>
+        </div>
+
+        <div class="step">
+          <b>04</b>
+          <div>
+            <strong>Join the call</strong><br>
+            Join the scheduled Google Meet.
+          </div>
+        </div>
+
+        <button class="btn" id="bookBtn" type="button" style="margin-top:25px">
+          BOOK 1:1 →
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- FAQ -->
+
+<section id="faq">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div class="label">
+        10 / FAQ
+      </div>
+
+      <div>
+
+        <h2>
+          Before you decide.
+        </h2>
+
+        <p>
+          Simple answers for a first-time visitor.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="faq">
+
+
+      <div class="faq-item">
+
+        <button class="faq-q" type="button">
+          What is Rational Mishra?
+          <span>+</span>
+        </button>
+
+        <div class="faq-a">
+          Rational Mishra is a creator platform focused on money,
+          work, freedom, psychology, relationships, philosophy
+          and independent thinking.
+        </div>
+
+      </div>
+
+
+      <div class="faq-item">
+
+        <button class="faq-q" type="button">
+          Is the course available right now?
+          <span>+</span>
+        </button>
+
+        <div class="faq-a">
+          No. The course shown here is a product concept.
+          The actual course would need to be launched and made
+          available by Rational.
+        </div>
+
+      </div>
+
+
+      <div class="faq-item">
+
+        <button class="faq-q" type="button">
+          What happens when I buy the course?
+          <span>+</span>
+        </button>
+
+        <div class="faq-a">
+          In the proposed product experience, successful payment
+          would unlock the student dashboard and course lessons.
+          The exact payment and access system would be connected
+          when the real course launches.
+        </div>
+
+      </div>
+
+
+      <div class="faq-item">
+
+        <button class="faq-q" type="button">
+          Why are some lessons locked?
+          <span>+</span>
+        </button>
+
+        <div class="faq-a">
+          The locked state demonstrates how premium course content
+          could remain unavailable until a student purchases the
+          course and receives access.
+        </div>
+
+      </div>
+
+
+      <div class="faq-item">
+
+        <button class="faq-q" type="button">
+          Who is the course for?
+          <span>+</span>
+        </button>
+
+        <div class="faq-a">
+          Conceptually, it is for people who want to think more
+          independently about money, career, freedom and the
+          decisions that shape their lives.
+        </div>
+
+      </div>
+
+
+      <div class="faq-item">
+
+        <button class="faq-q" type="button">
+          How does the 1:1 consultation work?
+          <span>+</span>
+        </button>
+
+        <div class="faq-a">
+          The proposed system is simple: choose an available slot,
+          pay, receive confirmation and join the scheduled
+          Google Meet call.
+        </div>
+
+      </div>
+
+
+      <div class="faq-item">
+
+        <button class="faq-q" type="button">
+          Can I book through Instagram DM?
+          <span>+</span>
+        </button>
+
+        <div class="faq-a">
+          Instagram can remain the discovery channel, while the
+          website handles actual appointment booking and payment.
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- FINAL -->
+
+<section class="final">
+
+  <div class="container">
+
+    <div class="label">
+      URBAN ESCAPE
+    </div>
+
+    <h2>
+      WHAT IF YOU<br>
+      <span>CHOSE</span> YOUR<br>
+      OWN PATH?
+    </h2>
+
+    <p>
+      Explore the ideas. Question the default.
+      Decide what actually matters to you.
+    </p>
+
+    <a href="#course" class="btn">
+      Explore the course →
+    </a>
+
+  </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+  <div class="container footer">
+
+    <strong>
+      RATIONAL / MISHRA
+    </strong>
+
+    <span>
+      URBAN ESCAPE — CONCEPT
+    </span>
+
+    <span>
+      UNOFFICIAL WEBSITE CONCEPT · FUTURE FEATURES SHOWN FOR DEMONSTRATION
+    </span>
+
+  </div>
+
+</footer>
+
+
+<!-- MODAL -->
+
+<div class="modal" id="modal" aria-hidden="true">
+
+  <div class="modal-box">
+
+    <button class="modal-close" id="modalClose" type="button">
+      ×
+    </button>
+
+    <div class="label" id="modalLabel">
+      COURSE
+    </div>
+
+    <h3 id="modalTitle">
+      Preview
+    </h3>
+
+    <p id="modalText"></p>
+
+    <div class="modal-status" id="modalStatus"></div>
+
+    <div class="modal-actions">
+
+      <button class="btn" id="modalPrimary" type="button">
+        CLOSE
+      </button>
+
+      <button class="btn-outline" id="modalSecondary" type="button">
+        Close
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* MOBILE NAV */
+
+const menu = document.getElementById("menu");
+const navLinks = document.getElementById("navLinks");
+
+menu.addEventListener("click", () => {
+  navLinks.classList.toggle("active");
+});
+
+document.querySelectorAll(".nav-links a").forEach(link => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("active");
+  });
+});
+
+
+/* COURSE MODULE ACCORDION */
+
+document.querySelectorAll(".module-header").forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    const module = button.parentElement;
+    const isOpen = module.classList.contains("open");
+
+    document.querySelectorAll(".module").forEach(item => {
+      item.classList.remove("open");
+
+      const arrow = item.querySelector(".module-arrow");
+
+      if (arrow) {
+        arrow.textContent = "+";
+      }
+    });
+
+    if (!isOpen) {
+
+      module.classList.add("open");
+
+      const arrow = button.querySelector(".module-arrow");
+
+      if (arrow) {
+        arrow.textContent = "−";
+      }
+
+    }
+
+  });
+
+});
+
+
+/* FAQ */
+
+document.querySelectorAll(".faq-q").forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    const item = button.parentElement;
+    const isOpen = item.classList.contains("open");
+
+    document.querySelectorAll(".faq-item").forEach(faq => {
+
+      faq.classList.remove("open");
+
+      const symbol = faq.querySelector("span");
+
+      if (symbol) {
+        symbol.textContent = "+";
+      }
+
+    });
+
+    if (!isOpen) {
+
+      item.classList.add("open");
+
+      const symbol = button.querySelector("span");
+
+      if (symbol) {
+        symbol.textContent = "−";
+      }
+
+    }
+
+  });
+
+});
+
+
+/* MODAL */
+
+const modal = document.getElementById("modal");
+const modalLabel = document.getElementById("modalLabel");
+const modalTitle = document.getElementById("modalTitle");
+const modalText = document.getElementById("modalText");
+const modalStatus = document.getElementById("modalStatus");
+const modalPrimary = document.getElementById("modalPrimary");
+const modalSecondary = document.getElementById("modalSecondary");
+const modalClose = document.getElementById("modalClose");
+
+function openModal(label,title,text,status,primary){
+
+  modalLabel.textContent = label;
+  modalTitle.textContent = title;
+  modalText.textContent = text;
+  modalStatus.textContent = status;
+  modalPrimary.textContent = primary;
+
+  modal.classList.add("active");
+  modal.setAttribute("aria-hidden","false");
+  document.body.classList.add("modal-open");
+
+}
+
+function closeModal(){
+
+  modal.classList.remove("active");
+  modal.setAttribute("aria-hidden","true");
+  document.body.classList.remove("modal-open");
+
+}
+
+modalClose.addEventListener("click",closeModal);
+modalSecondary.addEventListener("click",closeModal);
+modalPrimary.addEventListener("click",closeModal);
+
+modal.addEventListener("click",event => {
+
+  if(event.target === modal){
+    closeModal();
+  }
+
+});
+
+document.addEventListener("keydown",event => {
+
+  if(event.key === "Escape"){
+    closeModal();
+  }
+
+});
+
+
+/* COURSE BUTTON */
+
+document.getElementById("buyCourse").addEventListener("click",() => {
+
+  openModal(
+    "COURSE / NOT LIVE",
+    "The Independent Life",
+    "The course experience shown on this page is a concept demonstration. The real course has not been launched here.",
+    "PURCHASE STATUS — NOT AVAILABLE\n\nWhen the real product launches, this button could connect to checkout, payment and automatic course access.",
+    "CLOSE"
+  );
+
+});
+
+
+/* LOCKED LESSONS */
+
+document.querySelectorAll(".locked-lesson").forEach(lesson => {
+
+  lesson.addEventListener("click",() => {
+
+    const title = lesson.querySelector(".lesson-title").textContent;
+
+    openModal(
+      "LESSON LOCKED",
+      title,
+      "This lesson is shown as part of the proposed student experience.",
+      "ACCESS STATUS — LOCKED\n\nIn a real course platform, purchasing the course and receiving access would unlock this lesson.",
+      "UNDERSTOOD"
+    );
+
+  });
+
+});
+
+
+/* 1:1 BUTTON */
+
+document.getElementById("bookBtn").addEventListener("click",() => {
+
+  openModal(
+    "1:1 / BOOKING",
+    "Private Consultation",
+    "The proposed booking flow connects available slots, payment, confirmation and the scheduled call.",
+    "BOOKING STATUS — CONCEPT\n\nThe actual calendar, payment gateway, confirmation email and Google Meet connection would be added before launch.",
+    "CLOSE"
+  );
+
+});
+
+</script>
+
+</body>
+</html>
